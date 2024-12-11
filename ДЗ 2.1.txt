@@ -1,0 +1,41 @@
+//У нас даны две строки S и S1. 
+//Найдите количество вхождений S1 в S как подстроки.
+
+
+using System;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        //Ввод основной строки s
+        Console.Write("Введите s: "); //сообщение1
+        string s = Console.ReadLine(); // считать строку и сохранить на s
+
+        //Ввод основной строки s1
+        Console.Write("Введите s1: "); // сообщение2
+        string s1 = Console.ReadLine(); // считать строку и сохранить на s1
+
+        //подсчет подстроки s1 в строке s
+        int occurrences = CountOccurrences(s, s1); //количество и сохр. результат в переменной occurrences.
+
+        // Вывод на экран
+        Console.WriteLine($"Количество '{s1}' в строке '{s}' равно: {occurrences}");
+    }
+
+    //подсчет вхождений s1 в строке s
+    static int CountOccurrences(string s, string s1) //принимаем две строки s и s1.
+    {
+        int count = 0; // count - количество вхождений.
+        int index = 0; // index для с чего начинать поиск.
+
+        // Цикл, пока ищем подстроку s1 в строке s
+        while ((index = s.IndexOf(s1, index)) != -1) // Ищем, есть ли s1 в ss, начиная с позиции index.
+        {
+            count++; // Если нашли, увеличиваем  count.
+            index++; // Переходим на следующий символ после найденного вхождения
+        }
+
+        return count; //общее количество
+    }
+}
