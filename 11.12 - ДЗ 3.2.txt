@@ -1,0 +1,39 @@
+ДЗ 3.2 (2⭐) Напечатать в терминальном 
+окне окружность из символов «*» (при помощи циклов).
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Ввод радиуса окружности с клавиатуры
+        Console.WriteLine("Введите радиус окружности:");
+        int radius = int.Parse(Console.ReadLine());
+
+        if (radius <= 0)
+        {
+            Console.WriteLine("Ошибка: радиус должен быть положительным числом.");
+            return;
+        }
+
+        // Два вложенных цикла для создания сетки символов
+        for (int y = -radius; y <= radius; y++)
+        {
+            for (int x = -radius; x <= radius; x++)
+            {
+                // Проверяем, принадлежит ли точка (x, y) окружности с данным радиусом
+                if (Math.Abs(x * x + y * y - radius * radius) <= radius)
+                {
+                    Console.Write("*"); // Рисуем символ "*", если точка близка к окружности
+                }
+                else
+                {
+                    Console.Write(" "); // В противном случае рисуем пробел
+                }
+            }
+            Console.WriteLine(); // Переходим на следующую строку
+        }
+    }
+}
