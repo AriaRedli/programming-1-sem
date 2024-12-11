@@ -1,0 +1,66 @@
+см3.c2.(8⭐) Используя стек, реализовать алгоритм вычисления выражения, 
+записанного в обратной польской записи 
+(см. статью «Обратная польская запись» в википедии).
+
+
+
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Введите выражение в обратной польской записи (например, '2 1 + 3 *'):");
+        string input = Console.ReadLine(); // Считываем строку от пользователя
+        string[] tokens = input.Split(' '); // Разделяем строку на токены по пробелам
+
+        int result = EvaluateRPN(tokens); // Вычисляем результат
+        Console.WriteLine("Результат: " + result);
+    }
+
+    static int EvaluateRPN(string[] tokens)
+    {
+        Stack<int> stack = new Stack<int>(); // Создаем стек для хранения чисел
+
+        foreach (string token in tokens) // Перебираем все токены
+        {
+            // Если токен - число, добавляем его в стек
+            if (int.TryParse(token, out int number))
+            {
+                stack.Push(number); // Добавляем число в стек
+            }
+            else // Если токен - оператор
+            {
+                // Извлекаем два верхних элемента стека
+                int b = stack.Pop(); // Убираем верхний элемент (второй операнд)
+                int a = stack.Pop(); // Убираем следующий элемент (первый операнд)
+
+                int result = 0; // Инициализация переменной результата
+                // Проверяем, какой оператор, и выполняем соответствующее действие
+                switch (token)
+                {
+                    case "+":
+                        result = a + b; // Сложение
+                        break;
+                    case "-":
+                        result = a - b; // Вычитание
+                        break;
+                    case "*":
+                        result = a * b; // Умножение
+                        break;
+                    case "/":
+                        result = a / b; // Деление
+                        break;
+                    default:
+                        throw new InvalidOperationException("Неверный оператор."); // Ошибка, если оператор неизвестен
+                }
+
+                stack.Push(result); // Добавляем результат обратно в стек
+            }
+        }
+
+        // Вернем единственный элемент в стеке как результат
+        return stack.Pop();
+    }
+}
